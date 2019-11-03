@@ -178,6 +178,7 @@ return [
         /** My Providers for this project */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+
     ],
 
     /*
@@ -229,6 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /** My aliases */
+        'MetaTag' => Fomvasss\LaravelMetaTags\Facade::class,
     ],
 
 ];
