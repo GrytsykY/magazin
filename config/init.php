@@ -19,7 +19,7 @@ if (isset($_SERVER['HTTP_HOST'])){
 
 $allowed_host = 'http://magazin/index.php';
 
-$app_path = preg_replace("#[^/]+$","",$allowed_host);
+$app_path = preg_replace("#[^/]+$#","",$allowed_host);
 
 $app_path = preg_replace('/public/','',$app_path);
 
