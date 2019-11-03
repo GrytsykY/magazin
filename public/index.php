@@ -58,3 +58,7 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+
+require_once '../config/init.php';
+require_once '../config/params.php';
+new \App\SBlog\Core\BlogApp();
