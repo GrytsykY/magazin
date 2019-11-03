@@ -59,6 +59,6 @@ $response->send();
 
 $kernel->terminate($request, $response);
 
-require_once __DIR__ . '../config/init.php';
-require_once __DIR__ . '../config/params.php';
+require_once '../config/init.php';
+require_once '../config/params.php';
 new \App\SBlog\Core\BlogApp();
