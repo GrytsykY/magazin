@@ -6,7 +6,7 @@
             </button>
 
             <ul>
-                @foreach($errors->aly() as $error)
+                @foreach($errors->all() as $error)
                     <li>{{$error}}</li>
                 @endforeach
             </ul>
@@ -15,12 +15,12 @@
 @endif
 @if(session('success'))
     <div class="row justify-content-center">
-        <div class="col-md-11 ">
+        <div class="col-md-12 ">
             <div class="alert alert-success" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"></span>
                 </button>
-                {{session()->get('success')}}
+                <p>{{session()->get('success')}}</p>
             </div>
         </div>
     </div>

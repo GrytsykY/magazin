@@ -5,7 +5,7 @@
         <span>
             @if(!$item->hasChildren())
                 <a href="{{url("/admin/categories/mydel?id=$item->id")}}">
-                    <i class="fa fa-fw fa-close text-danger"></i>
+                    <i class="fa fa-fw fa-close text-danger delete"></i>
                 </a>
             @else
                 <i class="fa fa-fw fa-close"></i>
