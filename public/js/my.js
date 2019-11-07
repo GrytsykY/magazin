@@ -18,4 +18,14 @@ $('.deletebd').click(function () {
         if (!ress) return false;
     }
     if (!res) return false;
-})
+});
+
+/** Подсвечивание меню */
+$('.sidebar-menu a').each(function () {
+    var location = window.location.protocol + '//' + window.location.host + window.location.pathname;
+    var link = this.href;
+    if (link === location){
+        $(this).parent().addClass('active');
+        $(this).closest('.treeview').addClass('active');
+    }
+});
