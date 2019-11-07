@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\Models\Admin\Category;
 use App\Repositories\Admin\ProductRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,16 @@ class ProductController extends AdminBaseController
      */
     public function create()
     {
-        //
+        $item = new Category();
+
+        MetaTag::setTags(['title' => "Создание нового продукта"]);
+        return view('blog.admin.product.create',[
+            'catigories' => Category::with('children')
+            ->where('parent_id','0')
+            ->get(),
+            'delimiter' => '-',
+            'item' => $item,
+        ]);
     }
 
     /**

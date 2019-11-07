@@ -36,12 +36,12 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
-    config.filebrowserBrowseUrl = "{{asset('/adminlte/bower_components/kcfinder/browse.php?opener=ckeditor&type=files')}}";
-    config.filebrowserImageBrowseUrl = "{{asset('/adminlte/bower_components/kcfinder/browse.php?opener=ckeditor&type=images')}}";
-    config.filebrowserFlashBrowseUrl = "{{asset('/adminlte/bower_components/kcfinder/browse.php?opener=ckeditor&type=flash')}}";
-    config.filebrowserUploadUrl = "{{asset('/adminlte/bower_components/kcfinder/upload.php?opener=ckeditor&type=files')}}";
-    config.filebrowserImageUploadUrl = "{{asset('/adminlte/bower_components/kcfinder/upload.php?opener=ckeditor&type=images')}}";
-    config.filebrowserFlashUploadUrl = "{{asset('/adminlte/bower_components/kcfinder/upload.php?opener=ckeditor&type=flash')}}";
+    config.filebrowserBrowseUrl = pathd + "{{asset('/adminlte/bower_components/kcfinder/browse.php?opener=ckeditor&type=files')}}";
+    config.filebrowserImageBrowseUrl = pathd + "{{asset('/adminlte/bower_components/kcfinder/browse.php?opener=ckeditor&type=images')}}";
+    config.filebrowserFlashBrowseUrl = pathd + "{{asset('/adminlte/bower_components/kcfinder/browse.php?opener=ckeditor&type=flash')}}";
+    config.filebrowserUploadUrl = pathd + "{{asset('/adminlte/bower_components/kcfinder/upload.php?opener=ckeditor&type=files')}}";
+    config.filebrowserImageUploadUrl = pathd + "{{asset('/adminlte/bower_components/kcfinder/upload.php?opener=ckeditor&type=images')}}";
+    config.filebrowserFlashUploadUrl = pathd + "{{asset('/adminlte/bower_components/kcfinder/upload.php?opener=ckeditor&type=flash')}}";
 
 
 };
