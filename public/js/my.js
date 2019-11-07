@@ -29,3 +29,6 @@ $('.sidebar-menu a').each(function () {
         $(this).closest('.treeview').addClass('active');
     }
 });
+
+/** KCEditor */
+$('#editor1').ckeditor();
