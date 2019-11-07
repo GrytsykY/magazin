@@ -46,6 +46,9 @@ Route::group(['middleware' => ['status','auth']],function (){
 
         Route::resource('users','UserController')
             ->names('blog.admin.users');
+
+        Route::resource('products','ProductController')
+            ->names('blog.admin.products');
     });
 });
 
