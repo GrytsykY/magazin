@@ -22,7 +22,7 @@
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label for="title">Наименование товара</label>
-                                <input type="text" name="name" class="form-control" id="title"
+                                <input type="text" name="title" class="form-control" id="title"
                                        placeholder="Наименование товара"
                                        value="{{old('title')}}" required>
 
@@ -72,16 +72,32 @@
                                     <input type="checkbox" name="hit"> Хит
                                 </label>
                             </div>
+                            <div class="form-group has-feedback">
+                                <label for="related">Связанные товары</label>
+                                <p><small>Начните вводить наименование товара...</small></p>
+                                <select name="related[]"class="selected2 form-control" id="related" multiple>
+
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="related">фильтры продукта</label>
                                 {{Widget::run('filter',['tpl'=>'widgets.filter','filter' => null])}}
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    @include('blog.admin.product.include.image_single_create')
+                                </div>
+                                <div class="col-md-8">
+                                    @include('blog.admin.product.include.image_gallery_create')
+                                </div>
                             </div>
                         </div>
 
                         <input type="hidden" id="_token" value="{{csrf_token()}}">
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">Сохранить</button>
+                            <button type="submit" class="btn btn-success">Добавить</button>
                         </div>
                     </form>
                 </div>

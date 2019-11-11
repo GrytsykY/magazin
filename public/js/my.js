@@ -32,3 +32,22 @@ $('.sidebar-menu a').each(function () {
 
 /** KCEditor */
 $('#editor1').ckeditor();
+
+/** Сброс фильтров админка */
+$('#reset-filter').click(function () {
+    $('#filter input[type=radio]').prop('checked',false);
+    return false;
+});
+
+/** Выбор категории */
+$('#add').on('submit',function () {
+    if (!isNumber($('#parent_id').val())){
+        alert("Выберите категорию");
+        return false;
+    }
+});
+
+/** Является ли поле числом */
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}

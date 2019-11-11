@@ -8,7 +8,7 @@ class BlogApp
 {
     public static $app;
 
-    public function get_instance(){
+    public static function get_instance(){
         self::$app = Registry::instance();
         self::getParams();
         return self::$app;

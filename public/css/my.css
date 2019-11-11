@@ -35,3 +35,8 @@
     border-color: #d73925;
     color: #ffffff;
 }
+
+/** Для загруски галлереи */
+.overlay{
+    display: none;
+}
