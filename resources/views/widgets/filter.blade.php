@@ -32,12 +32,12 @@
 
                         <div class="form-group">
                             <label>
-                                <input type="radio" name="attrs[@php echo $group_id @endphp]"
-                                    value="@php echo $group_id @endphp" @php echo $checked @endphp>
+                                <input type="radio" name="attrs[@php echo $attr_id @endphp]"
+                                    value="@php echo $attr_id @endphp" @php echo $checked @endphp>
                                 @php echo $value; @endphp
                             </label>
                         </div>
-                            @php $i++; @endphp
+                        @php $i++; @endphp
                     @endforeach
                 </div>
 
