@@ -147,14 +147,15 @@ class ProductRepository extends CoreRepository
         $related_product = \DB::table('related_products')
             ->select('related_id')
             ->where('product_id', $id)
-            ->pluck('product_id')
+            ->pluck('related_id')
             ->toArray();
 
         /** если убрал связанные товары */
-        if (empty($data['related']) && !empty($related_product)) {
-            \DB::table(related_product)
-                ->where('product_id')
-                ->delete();
+        if (empty($data['related']) &&  !empty($related_product)) {
+
+                \DB::table('related_products')
+                    ->where('product_id', $id)
+                    ->delete();
             return;
         }
 
@@ -184,6 +185,42 @@ class ProductRepository extends CoreRepository
             \DB::insert("insert into galleries (img, product_id)VALUES $sql_part");
             \Session::forget('gallery');
         }
+    }
+
+    public function getInfoProduct($id)
+    {
+        $product = $this->startConditions()
+            ->find($id);
+        return $product;
+    }
+
+    public function getFiltersProduct($id)
+    {
+        $filter = \DB::table('attribute_products')
+            ->select('attr_id')
+            ->where('product_id',$id)
+            ->pluck('attr_id')
+            ->all();
+        return $filter;
+    }
+
+    public function getRelatedProducts($id)
+    {
+        $related_products = $this->startConditions()
+            ->join('related_products','products.id','=','related_products.related_id')
+            ->select('products.title','related_products.related_id')
+            ->where('related_products.product_id',$id)
+            ->get();
+        return $related_products;
+    }
+
+    public function getGallery($id)
+    {
+        $gallery = \DB::table('galleries')
+            ->where('product_id',$id)
+            ->pluck('img')
+            ->all();
+        return $gallery;
     }
 
     public static function resize($target, $dest, $wmax, $hmax, $ext)

@@ -12,7 +12,7 @@
             if (buttonMulti){
                 new AjaxUpload(buttonMulti,{
                     headers:{
-                        'X-CSRF-TOKEN': $('name[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     action: buttonMulti.data('url')+"?upload=1",
                     data: {name: buttonMulti.data('name'),_token: _token},
@@ -42,18 +42,19 @@
                 if (!res){
                     return false;
                 }
+
                 var $this = $(this);
                 id = $this.data('id');
                 src = $this.data('src');
                 $.ajax({
                     headers:{
-                        'X-CSRF-TOKEN': $('name[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: '{{url('/admin/products/delete-gallery')}}',
-                    data: {id:id,src:src,_token:_token},
+                    url: "{{url('/admin/products/delete-gallery')}}",
+                    data: {id: id, src: src, _token:_token},
                     type: 'POST',
                     beforeSend: function () {
-                        $this.closest('.file-uploade').find('.overlay').css({'display':'block'});
+                        $this.closest('.file-upload').find('.overlay').css({'display':'block'});
                     },
                     success: function (res) {
                         setTimeout(function () {
@@ -62,6 +63,11 @@
                                 $this.fadeOut();
                             }
                         },1000);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(xhr.responseText);
+                        alert(thrownError);
                     }
                 });
             });

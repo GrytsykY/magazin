@@ -24,7 +24,7 @@ class Filter extends AbstractWidget
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-        $this->filtr = $this->config['filter'];
+        $this->filter = $this->config['filter'];
         $this->tpl = $this->config['tpl'];
     }
 
@@ -52,6 +52,7 @@ class Filter extends AbstractWidget
         foreach ($data as $key => $value) {
             $attrs[$value->attr_group_id][$value->id] = $value->value;
         }
+
         return $attrs;
     }
 
@@ -65,7 +66,7 @@ class Filter extends AbstractWidget
         return $groups;
     }
 
-    public function fetFilter()
+    public function getFilter()
     {
         $filter = null;
     }

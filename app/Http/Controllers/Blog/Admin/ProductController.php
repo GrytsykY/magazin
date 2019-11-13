@@ -66,19 +66,19 @@ class ProductController extends AdminBaseController
         $data = $request->input();
         $product = (new Product())->create($data);
         $id = $product->id;
-        $product->status = $request->status ? '1':'0';
-        $product->hit = $request->hit ? '1':'0';
+        $product->status = $request->status ? '1' : '0';
+        $product->hit = $request->hit ? '1' : '0';
         $product->category_id = $request->parent_id ?? '0';
         $this->productRepository->getImg($product);
         $save = $product->save();
-        if ($save){
+        if ($save) {
             $this->productRepository->editFilter($id, $data);
             $this->productRepository->editRelateProduct($id, $data);
             $this->productRepository->saveGallery($id);
             return redirect()
-                ->route('blog.admin.products.create',[$product->id])
+                ->route('blog.admin.products.create', [$product->id])
                 ->with(['success' => "Успешно сохранено"]);
-        }else{
+        } else {
             return back()
                 ->withErrors(['msg' => "Ошибка сохранения"])
                 ->withInput();
@@ -105,8 +105,15 @@ class ProductController extends AdminBaseController
     public function edit($id)
     {
         $product = $this->productRepository->getInfoProduct($id);
+        $id = $product->id;
+        BlogApp::get_instance()->setProperty('parent_id', $product->category_id);
+
+        $filter = $this->productRepository->getFiltersProduct($id);
+        $related_products = $this->productRepository->getRelatedProducts($id);
+        $images = $this->productRepository->getGallery($id);
+
         MetaTag::setTags(['title' => "Редактирование продукта № $id"]);
-        return view('blog.admin.product.edit', [
+        return view('blog.admin.product.edit', compact('product', 'filter', 'related_products', 'id', 'images'), [
             'catigories' => Category::with('children')
                 ->where('parent_id', '0')
                 ->get(),
@@ -122,9 +129,34 @@ class ProductController extends AdminBaseController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminProductsRequest $request, $id)
     {
-        //
+        $product = $this->productRepository->getId($id);
+        if (empty($product)) {
+            return back()
+                ->withErrors(['msg' => "Запись = [{$id}] не найдена "])
+                ->withInput();
+        }
+        $data = $request->all();
+        $result = $product->update($data);
+        $product->status = $request->status ? '1' : '0';
+        $product->hit = $request->hit ? '1' : '0';
+        $product->category_id = $request->parent_id ?? $product->category_id;
+        $this->productRepository->getImg($product);
+        $save = $product->save();
+
+        if ($result && $save){
+            $this->productRepository->editFilter($id,$data);
+            $this->productRepository->editRelateProduct($id,$data);
+            $this->productRepository->saveGallery($id);
+            return redirect()
+                ->route('blog.admin.products.edit',[$product->id])
+                ->with(['success' => "Успешно сохранено"]);
+        }else{
+            return back()
+                ->withErrors(['msg' => "Ошибка сохранения"])
+                ->withInput();
+        }
     }
 
     /**
@@ -159,29 +191,29 @@ class ProductController extends AdminBaseController
     {
         if ($request->isMethod('get')) {
             return view('blog.admin.product.include.image_single_edit');
-        }else{
+        } else {
             $validator = \Validator::make($request->all(),
                 [
-                    'title'=>'image|max:1000',
+                    'title' => 'image|max:1000',
                 ],
                 [
-                    'file.image'=>'Файл должен быть картинкой (jpeg, phg, gif, or svg)',
-                    'file.max'=>'Ошибка! Максимальный размер картинки - 5 мб',
+                    'file.image' => 'Файл должен быть картинкой (jpeg, phg, gif, or svg)',
+                    'file.max' => 'Ошибка! Максимальный размер картинки - 5 мб',
                 ]);
-            if ($validator->fails()){
+            if ($validator->fails()) {
                 return array(
                     'fail' => true,
-                    'errors'=>$validator->errors(),
+                    'errors' => $validator->errors(),
                 );
             }
 
             $extension = $request->file('file')->getClientOriginalExtension();
             $dir = 'uploads/single/';
-            $filename = uniqid(). '_'.date('dmYHi').'.'.$extension;
-            $request->file('file')->move($dir,$filename);
+            $filename = uniqid() . '_' . date('dmYHi') . '.' . $extension;
+            $request->file('file')->move($dir, $filename);
             $wmax = BlogApp::get_instance()->getProperty('img_width');
             $hmax = BlogApp::get_instance()->getProperty('img_height');
-            $this->productRepository->uploadImg($filename,$wmax,$hmax);
+            $this->productRepository->uploadImg($filename, $wmax, $hmax);
             return $filename;
         }
 
@@ -192,41 +224,41 @@ class ProductController extends AdminBaseController
         //dd("ok->".$request);
         $validator = \Validator::make($request->all(),
             [
-                'title'=>'image|max:5000',
+                'title' => 'image|max:5000',
             ],
             [
-                'file.image'=>'Файл должен быть картинкой (jpeg, phg, gif, or svg)',
-                'file.max'=>'Ошибка! Максимальный размер картинки - 5 мб',
+                'file.image' => 'Файл должен быть картинкой (jpeg, phg, gif, or svg)',
+                'file.max' => 'Ошибка! Максимальный размер картинки - 5 мб',
             ]);
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return array(
                 'fail' => true,
-                'errors'=>$validator->errors(),
+                'errors' => $validator->errors(),
             );
         }
 
-        if (isset($_GET['upload'])){
+        if (isset($_GET['upload'])) {
             $wmax = BlogApp::get_instance()->getProperty('gallery_width');
             $hmax = BlogApp::get_instance()->getProperty('gallery_height');
             $name = $_POST['name'];
-            $this->productRepository->uploadGallery($name,$wmax,$hmax);
+            $this->productRepository->uploadGallery($name, $wmax, $hmax);
         }
 
     }
 
     public function deleteImage($filename)
     {
-        \File::delete('uploads/single/'.$filename);
+        \File::delete('uploads/single/' . $filename);
     }
 
     public function deletegallery()
     {
-        $id = isset($_POST['id']) ? $_POST['id']:null;
-        $src = isset($_POST['src']) ? $_POST['src']:null;
-        if (!id || !$src){
+        $id = isset($_POST['id']) ? $_POST['id'] : null;
+        $src = isset($_POST['src']) ? $_POST['src'] : null;
+        if (!$id || !$src) {
             return;
         }
-        if (\DB::table("DELETE FROM galleries WHERE product_id = ? AND img = ?",[$id, $src])){
+        if (\DB::delete("DELETE FROM galleries WHERE product_id = ? AND img = ?", [$id, $src])) {
             @unlink("uploads/gallery/$src");
             exit('1');
         }
