@@ -25,14 +25,14 @@
                 <div class="tab-pane @if($i==1) active @endif" id="tab_@php echo $group_id @endphp">
                     @foreach($attrs[$group_id] as $attr_id => $value)
                         @if(!empty($filter)&& in_array($attr_id,$filter))
-                            @php $checked = ' checked'; @endphp
+                            @php $checked = 'checked'; @endphp
                         @else
                             @php $checked = null; @endphp
                         @endif
 
                         <div class="form-group">
                             <label>
-                                <input type="radio" name="attrs[@php echo $attr_id @endphp]"
+                                <input type="radio" name="attrs[@php echo $group_id @endphp]"
                                     value="@php echo $attr_id @endphp" @php echo $checked @endphp>
                                 @php echo $value; @endphp
                             </label>

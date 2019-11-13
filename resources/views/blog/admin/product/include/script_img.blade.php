@@ -64,5 +64,31 @@
             }
         }
     }
+
+    function removeFileImg() {
+        if ($('a.myimg').data('name') != ''){
+            if (confirm('Вы точно хотите удалить эту картинку?')){
+                $('#loading').css('display','block');
+                var form_data = new FormData();
+                form_data.append('_method','DELETE');
+                form_data.append('_token','{{csrf_token()}}');
+                $.ajax({
+                    url: '{{url('/admin/products/ajax-remove-image')}}'+'/'+$('a.myimg').data('name'),
+                    data: form_data,
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        $('#preview_image').attr('src','{{asset('images/no_image.png')}}');
+                        $('#file_name').val('');
+                        $('#loading').css('display','none');
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+        }
+    }
     
 </script>

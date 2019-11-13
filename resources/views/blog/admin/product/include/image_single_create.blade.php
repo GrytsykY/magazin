@@ -17,6 +17,7 @@
         </a>
     </p>
     <input type="file" id="file" style="display: none">
+    <input type="_token">
     <input type="hidden" id="file_name">
     <p style="text-align: center"><small>Рекомендуемые размеры: 125ш.х200в</small></p>
 </div>
