@@ -223,6 +223,66 @@ class ProductRepository extends CoreRepository
         return $gallery;
     }
 
+    public function returnStatus($id)
+    {
+        if (isset($id)){
+            $st = \DB::update("UPDATE products SET status = '1' WHERE id = ?",[$id]);
+            if ($st){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function deleteStatusOne($id)
+    {
+        if (isset($id)){
+            $st = \DB::update("UPDATE products SET status = '0' WHERE id = ?",[$id]);
+            if ($st){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function deleteImgGalleryFromPath($id)
+    {
+        $galleryImg = \DB::table('galleries')
+            ->select('img')
+            ->where('product_id',$id)
+            ->pluck('img')
+            ->all();
+        $singleImg = \DB::table('products')
+            ->select('img')
+            ->where('id',$id)
+            ->pluck('img')
+            ->all();
+        if (!empty($galleryImg)){
+            foreach ($galleryImg as $img){
+                @unlink("uploads/gallery/$img");
+            }
+        }
+        if (!empty($singleImg)){
+                @unlink("uploads/gallery/".$singleImg[0]);
+        }
+    }
+
+    public function deleteFromDB($id)
+    {
+        if (isset($id)){
+            $related_product = \DB::delete('DELETE FROM related_products WHERE product_id = ?',[$id]);
+            $attr_prod = \DB::delete('DELETE FROM attribute_products WHERE product_id = ?',[$id]);
+            $gallery = \DB::delete('DELETE FROM galleries WHERE product_id = ?',[$id]);
+            $product = \DB::delete('DELETE FROM products WHERE id = ?',[$id]);
+
+            if ($product){
+                return true;
+            }
+        }
+    }
+
     public static function resize($target, $dest, $wmax, $hmax, $ext)
     {
         list($w_orig, $h_orig) = getimagesize($target);

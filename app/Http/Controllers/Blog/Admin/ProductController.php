@@ -264,4 +264,53 @@ class ProductController extends AdminBaseController
         }
         return;
     }
+
+    public function returnStatus($id)
+    {
+        if ($id){
+            $st = $this->productRepository->returnStatus($id);
+            if ($st){
+                return redirect()
+                    ->route('blog.admin.products.index')
+                    ->with(['success' => "Успешно сохранено"]);
+            }else{
+                return back()
+                    ->withErrors(['msg' => "Ошибка сохранения"])
+                    ->withInput();
+            }
+        }
+    }
+
+    public function deleteStatus($id)
+    {
+        if ($id){
+            $st = $this->productRepository->deleteStatusOne($id);
+            if ($st){
+                return redirect()
+                    ->route('blog.admin.products.index')
+                    ->with(['success' => "Успешно удалено"]);
+            }else{
+                return back()
+                    ->withErrors(['msg' => "Ошибка удаления"])
+                    ->withInput();
+            }
+        }
+    }
+
+    public function deleteProduct($id)
+    {
+        if ($id){
+            $gal =$this->productRepository->deleteImgGalleryFromPath($id);
+            $db = $this->productRepository->deleteFromDB($id);
+            if ($db){
+                return redirect()
+                    ->route('blog.admin.products.index')
+                    ->with(['success' => "Успешно удалено"]);
+            }else{
+                return back()
+                    ->withErrors(['msg' => "Ошибка удаления"])
+                    ->withInput();
+            }
+        }
+    }
 }
