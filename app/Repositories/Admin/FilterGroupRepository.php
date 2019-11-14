@@ -24,4 +24,23 @@ class FilterGroupRepository extends CoreRepository
         $attrs_group = \DB::table('attribute_groups')->get()->all();
         return $attrs_group;
     }
+
+    public function getInfoProduct($id)
+    {
+        $product = $this->startConditions()
+            ->find($id);
+        return $product;
+    }
+
+    public function deleteGroupFilter($id)
+    {
+        $delete = $this->startConditions()->where('id',$id)->forceDelete();
+        return $delete;
+    }
+
+    public function getCountGroupFilter()
+    {
+        $count = \DB::table('attribute_values')->count();
+        return $count;
+    }
 }
