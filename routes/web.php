@@ -67,6 +67,11 @@ Route::group(['middleware' => ['status','auth']],function (){
         Route::resource('products','ProductController')
             ->names('blog.admin.products');
 
+        Route::get('/filter/group-filter','FilterController@attributeGroup');
+        Route::match(['get','post'],'/filter/group-add','FilterController@addGroup');
+
+        Route::get('/filter/attributes-filter','FilterController@attributeFilter');
+
     });
 });
 
