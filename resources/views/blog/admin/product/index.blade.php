@@ -11,7 +11,7 @@
 
     <!--    Main content -->
     <section class="content">
-        <diw class="row">
+        <div class="row">
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-body">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-        </diw>
+        </div>
     </section>
 
 @endsection

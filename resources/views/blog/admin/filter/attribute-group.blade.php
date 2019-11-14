@@ -29,16 +29,16 @@
                                 <tbody>
                                 @foreach($attrs_group as $attr)
                                     <tr>
-                                        <td>{{$attr->id}}&nbsp;{{$attr->title}}</td>
+                                        <td>{{$attr->id}}.&nbsp;{{$attr->title}}</td>
                                         <td>
-                                            <a href="#">
+                                            <a href="{{url('/admin/filter/group-edit',$attr->id)}}">
                                                 <i class="fa fa-fw fa-pencil" title="Редактировать"></i>
                                             </a>&nbsp;&nbsp;&nbsp;
-                                            <a href="#">
+                                            <a href="{{url('/admin/filter/group-delete',$attr->id)}}" class="delete">
                                                 <i class="fa fa-fw fa-close text-danger" title="Удалить"></i>
                                             </a>
                                         </td>
-
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>

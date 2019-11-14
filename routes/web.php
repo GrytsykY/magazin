@@ -69,8 +69,14 @@ Route::group(['middleware' => ['status','auth']],function (){
 
         Route::get('/filter/group-filter','FilterController@attributeGroup');
         Route::match(['get','post'],'/filter/group-add','FilterController@addGroup');
+        Route::match(['get','post'],'/filter/group-edit/{id}','FilterController@editGroup');
+        Route::get('/filter/group-delete/{id}','FilterController@deleteGroup');
 
         Route::get('/filter/attributes-filter','FilterController@attributeFilter');
+
+        Route::match(['get','post'],'/filter/attrs-add','FilterController@attributeAdd');
+        Route::match(['get','post'],'/filter/attr-edit/{id}','FilterController@attributeEdit');
+        Route::get('/filter/attr-delete/{id}','FilterController@attributeDelete');
 
     });
 });
