@@ -154,14 +154,14 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-usd"></i> <span>Валюты</span>
+                    <a href="{{url('admin/currency/index')}}"><i class="fa fa-usd"></i> <span>Валюты</span>
                         <span class="pull-right-container">
 <i class="fa fa-angle-left pull-right"></i>
 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Список валют</a></li>
-                        <li><a href="#">Добавить валюту</a></li>
+                        <li><a href="{{url('admin/currency/index')}}">Список валют</a></li>
+                        <li><a href="{{url('admin/currency/add')}}">Добавить валюту</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
