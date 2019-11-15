@@ -78,6 +78,8 @@ Route::group(['middleware' => ['status','auth']],function (){
 
         Route::get('/currency/index','CurrencyController@index');
         Route::match(['get','post'],'/currency/add','CurrencyController@add');
+        Route::match(['get','post'],'/currency/edit/{id}','CurrencyController@edit');
+        Route::get('/currency/delete/{id}','CurrencyController@delete');
 
 
     });

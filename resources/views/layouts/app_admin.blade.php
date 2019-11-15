@@ -165,7 +165,7 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-filter"></i> <span>Фильтры</span>
+                    <a href="{{url('admin/filter/attributes-filter')}}"><i class="fa fa-filter"></i> <span>Фильтры</span>
                         <span class="pull-right-container">
 <i class="fa fa-angle-left pull-right"></i>
 </span>
