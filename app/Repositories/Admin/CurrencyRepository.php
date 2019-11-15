@@ -44,4 +44,18 @@ class CurrencyRepository extends CoreRepository
         }
 
     }
+
+    public function getInfoCurrency($id)
+    {
+        $currency = $this->startConditions()
+            ->find($id);
+        return $currency;
+    }
+
+    public function deleteCurr($id)
+    {
+        $delete = $this->startConditions()->where('id',$id)->forceDelete();
+        return $delete;
+    }
+
 }

@@ -40,10 +40,10 @@
                                         <td>{{$item->value}}</td>
                                         <td>@if($item->base == 1) Да @else Нет @endif</td>
                                         <td>
-                                            <a href="" title="Редактирование">
+                                            <a href="{{url('/admin/currency/edit',$item->id)}}" title="Редактирование">
                                                 <i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;&nbsp;
                                             </a>
-                                            <a href="" title="Удаление" class="delete">
+                                            <a href="{{url('/admin/currency/delete',$item->id)}}" title="Удаление" class="delete">
                                                 <i class="fa fa-fw fa-close text-danger"></i>
                                             </a>
                                         </td>
