@@ -179,7 +179,7 @@
 
             <!-- search form -->
 
-            <form action="" method="get" autocomplete="off"  style="position: absolute;">
+            <form action="{{url('/admin/search/result')}}" method="get" autocomplete="off"  style="position: absolute;">
                 <div class="input-group">
                     <input id="search" name="search" type="text" class="form-control" placeholder="Живой поиск...." style="color: whitesmoke; background-color:#20262a; border: none;">
                     <span class="input-group-btn">
@@ -218,6 +218,18 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+<script type="text/javascript">
+    var route = "{{url('/admin/autocomplete')}}";
+    $('#search').typeahead({
+        source: function (term, process) {
+            return $.get(route, {term: term},function (data) {
+                return process(data);
+            });
+        }
+    });
+</script>
 
 <script>
     var pathd = '{{PATH}}';
