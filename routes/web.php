@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('reset', 'ResetController@reset')->name('reset');
+
 /** Admin */
 Route::group(['middleware' => ['status','auth']],function (){
     $groupData = [

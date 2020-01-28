@@ -56,7 +56,8 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-
+                    <li><a style="color: white;" href="{{route('reset')}}">Сброс в
+                            нач-состояние</a></li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">

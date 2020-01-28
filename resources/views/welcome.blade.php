@@ -74,6 +74,14 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
+    <div class="starter-template">
+        @if(session()->has('success'))
+            <p style="font-size: 36px;color: blue" class="alert alert-success">{{session()->get('success')}}</p>
+        @endif
+        @if(session()->has('warning'))
+            <p class="alert alert-warning">{{session()->get('warning')}}</p>
+        @endif
+    </div>
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
